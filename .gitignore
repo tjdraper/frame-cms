@@ -1,0 +1,75 @@
+#------------------------------------
+	# Project
+#------------------------------------
+
+# Custom exclusions here
+
+
+
+
+
+#------------------------------------
+	# System
+#------------------------------------
+
+# htaccess
+.htaccess
+
+# Caches
+public_html/cache/*
+
+
+
+
+
+#------------------------------------
+	# Tools
+#------------------------------------
+
+.bundle
+.idea/
+.komodotools
+.project
+.settings/
+.tern-project
+.tmproj
+*.esproj
+*.komodoproject
+*.sublime-*
+browserstack.js
+codekit-config.json
+mixture.json
+prepros.json
+
+
+
+
+
+#------------------------------------
+	# Environment
+#------------------------------------
+
+.cache
+.DS_Store
+.tmp
+*.diff
+*.err
+*.lock
+*.log
+*.orig
+*.rej
+*.swo
+*.swp
+*.vi
+error_log
+Thumbs.db
+
+
+
+
+
+#------------------------------------
+	# Gitkeep
+#------------------------------------
+
+!.gitkeep
