@@ -32,14 +32,6 @@ spl_autoload_register(function ($class) {
 		include_once $file;
 		return;
 	}
-
-	// Check vendor directory for class
-	// $file = FRAME_PATH . DIRECTORY_SEPARATOR . 'Vendor' . DIRECTORY_SEPARATOR . $ns;
-	// $file = rtrim($file, DIRECTORY_SEPARATOR) . '.php';
-
-	// if (file_exists($file)) {
-	// 	include_once $file;
-	// }
 });
 
 // Include frame

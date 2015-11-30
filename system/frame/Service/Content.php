@@ -11,19 +11,25 @@
 
 namespace Frame\Service;
 
+use Mni\FrontYAML;
+
 class Content
 {
 	/**
 	 * Get content for the current url
 	 *
-	 * @param uri
-	 * @return string (?)
+	 * @param string uri
+	 * @return object FrontYAML parsed content instance
 	 */
 	public function get($uri)
 	{
 		$content = $this->checkContent($uri);
 
-		var_dump($content);
+		$frontYamlParser = new FrontYAML\Parser();
+
+		$content = $frontYamlParser->parse($content);
+
+		return $content;
 	}
 
 	/**
