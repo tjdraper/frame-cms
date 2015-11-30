@@ -21,8 +21,38 @@ class Content
 	 */
 	public function get($uri)
 	{
-		echo 'get content for current url';
-		var_dump($uri);
-		die;
+		$content = $this->checkContent($uri);
+
+		var_dump($content);
+	}
+
+	/**
+	 * Check paths for content
+	 *
+	 * @return string Contents of file
+	 */
+	private function checkContent($uri)
+	{
+		// Set index if uri is empty
+		$uri = $uri ?: 'index';
+
+		// Set the user content path
+		$contentPath = USER_PATH . '/content/';
+
+		// Check for a file at the uri location
+		$checkPath = $contentPath . $uri . '.md';
+
+		if (is_file($checkPath)) {
+			return file_get_contents($checkPath);
+		}
+
+		// Check for an index in the uri directory location
+		$checkPath = $contentPath . $uri . '/index.md';
+
+		if (is_file($checkPath)) {
+			return file_get_contents($checkPath);
+		}
+
+		return '';
 	}
 }
