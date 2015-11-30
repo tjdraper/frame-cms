@@ -2,7 +2,15 @@
 	# Project
 #------------------------------------
 
-# Custom exclusions here
+# Ignore config
+system/user/config/*
+! system/user/config/config.php.sample
+
+# Ignore templates
+system/user/templates/*
+
+# Ignore content
+system/user/content/*
 
 
 
