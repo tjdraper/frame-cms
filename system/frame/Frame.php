@@ -20,6 +20,44 @@ class Frame
 		'segments' => array(),
 		'uriPath' => false
 	);
+	protected $frontMatter;
+	protected $content;
+
+	private $allowedSets = array(
+		'frontMatter' => 'frontMatter',
+		'content' => 'content'
+	);
+
+	/**
+	 * Set item
+	 *
+	 * @param string $itemName
+	 * @param mixed $itemData
+	 * @return self
+	 */
+	public function set($itemName, $itemData)
+	{
+		if (isset($this->allowedSets[$itemName])) {
+			$this->{$itemName} = $itemData;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get item
+	 *
+	 * @param string $itemName
+	 * @return mixed
+	 */
+	public function get($itemName)
+	{
+		if (isset($this->allowedSets[$itemName])) {
+			return $this->{$itemName};
+		}
+
+		return null;
+	}
 
 	/**
 	 * Set config

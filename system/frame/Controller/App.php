@@ -35,11 +35,18 @@ class App
 		$contentService = new Service\Content();
 		$parsedContent = $contentService->get(frame()->getUri('uriPath'));
 
-		// exit($parsedContent->getContent());
-		var_dump(get_class_methods($parsedContent));
-		die;
+		// Set the content to the frame global
+		frame()->set('frontMatter', $parsedContent->getYAML());
+		frame()->set('content', $parsedContent->getContent());
 
-		// Check for template in front matter, otherwise render default template
-		// with object set to twig templating
+		// Get template
+		$getTemplate = new Service\GetTemplate();
+		$template = $getTemplate->get();
+
+		// Set twig variables including globals (should there be a YAML file
+		// somewhere?) and parse the template through twig, then output
+
+		var_dump($template);
+		die;
 	}
 }
