@@ -38,6 +38,23 @@ class App
 		frame()->set('contentFrontMatter', $parsedContent->getYAML());
 		frame()->set('contentBody', $parsedContent->getContent());
 
+		// Get listing parent information if applicable
+		if (frame()->get('isListingEntry')) {
+			$parsedListingIndex = $contentService->get(
+				frame()->get('listingParentUri')
+			);
+
+			frame()->set(
+				'listingParentFrontMatter',
+				$parsedListingIndex->getYAML()
+			);
+
+			frame()->set(
+				'listingParentContent',
+				$parsedListingIndex->getContent()
+			);
+		}
+
 		// Setup the Twig template environment
 		$setTwigEnvironment = new Service\SetupTwigEnvironment();
 		$setTwigEnvironment->set();

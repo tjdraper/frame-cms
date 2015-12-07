@@ -20,6 +20,11 @@ class Frame
 		'segments' => array(),
 		'uriPath' => false
 	);
+	protected $isListingEntry;
+	protected $listingPath;
+	protected $listingParentUri;
+	protected $listingParentFrontMatter;
+	protected $listingParentContent;
 	protected $contentFrontMatter;
 	protected $contentBody;
 	protected $twig;
@@ -27,6 +32,11 @@ class Frame
 	protected $templateVariables = array();
 
 	private $allowedSets = array(
+		'isListingEntry',
+		'listingPath',
+		'listingParentUri',
+		'listingParentFrontMatter',
+		'listingParentContent',
 		'contentFrontMatter',
 		'contentBody',
 		'twig',
@@ -34,13 +44,31 @@ class Frame
 	);
 
 	private $allowedGets = array(
+		'isListingEntry',
+		'listingPath',
+		'listingParentUri',
+		'listingParentFrontMatter',
+		'listingParentContent',
 		'contentFrontMatter',
 		'contentBody',
 		'twig',
 		'twigTemplate',
 		'templateVariables',
 		'config',
-		'uri'
+		'uri',
+		'templateVarSets'
+	);
+
+	private $templateVarSets = array(
+		'config' => 'config',
+		'uri' => 'uri',
+		'frontMatter' => 'contentFrontMatter',
+		'body' => 'contentBody',
+		'isListingEntry' => 'isListingEntry',
+		'listingPath' => 'listingPath',
+		'listingParentUri' => 'listingParentUri',
+		'listingParentFrontMatter' => 'listingParentFrontMatter',
+		'listingParentContent' => 'listingParentContent',
 	);
 
 	/**

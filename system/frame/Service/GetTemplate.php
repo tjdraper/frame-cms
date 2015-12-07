@@ -27,20 +27,32 @@ class GetTemplate
 	{
 		$frontMatter = frame()->get('frontMatter');
 		$template = null;
+		$uri = frame()->getUri();
+
+		// Check for private segment
+		$uriArray = explode('/', $uri['uriPath']);
+		foreach ($uriArray as $segment) {
+			if (strpos($segment, '_') === 0) {
+				exit('No template was found');
+			}
+		}
 
 		if (isset($frontMatter['Template'])) {
 			$template = $this->getTemplateContents($frontMatter['Template']);
-		} else {
-			$uri = frame()->getUri();
+		} elseif (frame()->get('isListingEntry')) {
+			$contentFrontMatter = frame()->get('listingParentFrontMatter');
+			$templatePath = '';
 
-			// Check for private segment
-			$uriArray = explode('/', $uri['uriPath']);
-			foreach ($uriArray as $segment) {
-				if (strpos($segment, '_') === 0) {
-					exit('No template was found');
-				}
+			if (isset($contentFrontMatter['ListingTemplate'])) {
+				$templatePath = $contentFrontMatter['ListingTemplate'];
+			} elseif (isset($contentFrontMatter['Template'])) {
+				$templatePath = $contentFrontMatter['Template'];
 			}
 
+			if ($templatePath) {
+				$template = $this->getTemplateContents($templatePath);
+			}
+		} else {
 			$template = $this->getTemplateContents($uri['uriPath']);
 
 			if (! $template) {

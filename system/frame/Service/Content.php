@@ -35,6 +35,7 @@ class Content
 	/**
 	 * Check paths for content
 	 *
+	 * @param string $uri
 	 * @return string Contents of file
 	 */
 	private function checkContent($uri)
@@ -65,6 +66,66 @@ class Content
 
 		if (is_file($checkPath)) {
 			return file_get_contents($checkPath);
+		}
+
+		return $this->checkListingContent($uri);
+	}
+
+	/**
+	 * Check listing content
+	 *
+	 * @param string $uri
+	 * @return string Contents of file
+	 */
+	private function checkListingContent($uri)
+	{
+		// Set the user content path
+		$contentPath = USER_PATH . '/content/';
+
+		// Get array of uri
+		$uriArray = explode('/', $uri);
+
+		// Get the potential slgu
+		$slug = end($uriArray);
+
+		// Unset the slug from the uri array
+		unset($uriArray[key($uriArray)]);
+
+		// Get the path
+		$path = implode('/', $uriArray);
+		$listingParentPath = $contentPath . $path;
+		$listingPath = $contentPath . $path . '/_listingContent/';
+
+		// If the listing content dir is not there, return
+		if (! is_dir($listingPath)) {
+			return '';
+		}
+
+		// Get entries
+		$entries = scandir($listingPath);
+		unset($entries[0]);
+		unset($entries[1]);
+
+		// Check for slug match
+		foreach ($entries as $entry) {
+			$parts = explode('--', $entry);
+			$parts = explode('.', end($parts));
+
+			if (count($parts) !== 2) {
+				continue;
+			}
+
+			if ($parts[0] !== $slug) {
+				continue;
+			}
+
+			if (is_file($listingPath . $entry)) {
+				frame()->set('isListingEntry', true);
+				frame()->set('listingPath', $listingParentPath);
+				frame()->set('listingParentUri', $path);
+
+				return file_get_contents($listingPath . $entry);
+			}
 		}
 
 		return '';

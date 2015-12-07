@@ -18,18 +18,10 @@ class SetTemplateVariables
 	 */
 	public function set()
 	{
-		frame()->setTemplateVar('config', frame()->get('config'));
+		$varSets = frame()->get('templateVarSets');
 
-		frame()->setTemplateVar('uri', frame()->get('uri'));
-
-		frame()->setTemplateVar(
-			'frontMatter',
-			frame()->get('contentFrontMatter')
-		);
-
-		frame()->setTemplateVar(
-			'body',
-			frame()->get('contentBody')
-		);
+		foreach ($varSets as $key => $var) {
+			frame()->setTemplateVar($key, frame()->get($var));
+		}
 	}
 }
