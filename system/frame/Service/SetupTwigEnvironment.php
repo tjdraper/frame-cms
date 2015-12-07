@@ -45,23 +45,27 @@ class SetupTwigEnvironment
 	 */
 	private function loadFilters($twig)
 	{
-		$filters = scandir(FRAME_PATH . '/TwigFilters/');
+		$path = FRAME_PATH . '/TwigFilters/';
+		$filters = scandir($path);
 		unset($filters[0]);
 		unset($filters[1]);
 
+		$namespace = array(
+			'\Frame',
+			'TwigFilters'
+		);
+
 		foreach ($filters as $filterName) {
-			$filterName = str_replace('.php', '', $filterName);
+			if (! is_dir($path . $filterName)) {
+				continue;
+			}
 
-			$namespace = array(
-				'Frame',
-				'TwigFilters',
-				$filterName
-			);
-
+			$namespace[] = $filterName;
+			$namespace[] = $filterName . '_Filter';
 			$namespace = implode('\\', $namespace);
 
 			$filter = new \Twig_SimpleFilter(
-				$filterName,
+				lcfirst($filterName),
 				array(
 					$namespace,
 					'index'
@@ -82,23 +86,27 @@ class SetupTwigEnvironment
 	 */
 	public function loadFunctions($twig)
 	{
-		$functions = scandir(FRAME_PATH . '/TwigFunctions/');
+		$path = FRAME_PATH . '/TwigFunctions/';
+		$functions = scandir($path);
 		unset($functions[0]);
 		unset($functions[1]);
 
+		$namespace = array(
+			'\Frame',
+			'TwigFunctions'
+		);
+
 		foreach ($functions as $functionName) {
-			$functionName = str_replace('.php', '', $functionName);
+			if (! is_dir($path . $functionName)) {
+				continue;
+			}
 
-			$namespace = array(
-				'Frame',
-				'TwigFunctions',
-				$functionName
-			);
-
+			$namespace[] = $functionName;
+			$namespace[] = $functionName . '_Function';
 			$namespace = implode('\\', $namespace);
 
 			$function = new \Twig_SimpleFunction(
-				$functionName,
+				lcfirst($functionName),
 				array(
 					$namespace,
 					'index'
@@ -119,18 +127,23 @@ class SetupTwigEnvironment
 	 */
 	public function loadTags($twig)
 	{
-		$tags = scandir(FRAME_PATH . '/TwigTags/');
+		$path = FRAME_PATH . '/TwigTags/';
+		$tags = scandir($path);
 		unset($tags[0]);
 		unset($tags[1]);
 
-		foreach ($tags as $tagName) {
-			$namespace = array(
-				'\Frame',
-				'TwigTags',
-				$tagName,
-				$tagName . '_TokenParser'
-			);
+		$namespace = array(
+			'\Frame',
+			'TwigTags'
+		);
 
+		foreach ($tags as $tagName) {
+			if (! is_dir($path . $tagName)) {
+				continue;
+			}
+
+			$namespace[] = $tagName;
+			$namespace[] = $tagName . '_TokenParser';
 			$namespace = implode('\\', $namespace);
 
 			$twig->addTokenParser(new $namespace());

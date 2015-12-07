@@ -9,9 +9,9 @@
  * @copyright Copyright (c) 2015, BuzzingPixel
  */
 
-namespace Frame\TwigFilters;
+namespace Frame\TwigFilters\Example;
 
-class Example
+class Example_filter
 {
 	/**
 	 * Example filter

@@ -39,5 +39,5 @@ class ExampleTag_TokenParser extends \Twig_TokenParser
 			$token->getLine(),
 			$this->getTag()
 		);
-    }
+	}
 }

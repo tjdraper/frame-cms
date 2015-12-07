@@ -9,16 +9,17 @@
  * @copyright Copyright (c) 2015, BuzzingPixel
  */
 
-namespace Frame\TwigFunctions;
+namespace Frame\TwigFunctions\Listing;
 
-class ExampleFunc
+class Listing_Function
 {
 	/**
-	 * ToString filter
+	 * Listing
 	 *
+	 * @param string $listingDirectory
 	 * @return string
 	 */
-	public static function index($arg1 = false, $arg2 = false)
+	public static function index($listingDirectory)
 	{
 		return 'Example';
 	}
