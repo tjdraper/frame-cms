@@ -39,12 +39,18 @@ class App
 		frame()->set('contentFrontMatter', $parsedContent->getYAML());
 		frame()->set('contentBody', $parsedContent->getContent());
 
-		// Get template
-		$getTemplate = new Service\GetTemplate();
-		$template = $getTemplate->get();
+		// Setup the Twig template environment
+		$setTwigEnvironment = new Service\SetupTwigEnvironment();
+		$setTwigEnvironment->set();
 
 		// Set template variables
 		$setTemplateVariables = new Service\SetTemplateVariables();
 		$setTemplateVariables->set();
+
+		// Get template
+		$getTemplate = new Service\GetTemplate();
+		$template = $getTemplate->get();
+
+		$template->display(frame()->get('templateVariables'));
 	}
 }

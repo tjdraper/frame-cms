@@ -22,8 +22,6 @@ class GetTemplate
 
 	/**
 	 * Get template
-	 *
-	 * @return string
 	 */
 	public function get()
 	{
@@ -46,7 +44,7 @@ class GetTemplate
 			exit('No template was found');
 		}
 
-		return $template;
+		frame()->set('twigTemplate', $template);
 	}
 
 	/**
@@ -57,11 +55,13 @@ class GetTemplate
 	 */
 	private function getTemplateContents($templatePath)
 	{
-		$templatePath = USER_PATH . '/templates/' . $templatePath;
+		$twig = frame()->get('twig');
+
+		$fullPath = USER_PATH . '/templates/' . $templatePath;
 
 		foreach ($this->fileExtensions as $ext) {
-			if (is_file($templatePath . '.' . $ext)) {
-				return trim(file_get_contents($templatePath . '.' . $ext));
+			if (is_file($fullPath . '.' . $ext)) {
+				return $twig->loadTemplate($templatePath . '.' . $ext);
 			}
 		}
 

@@ -6,6 +6,9 @@
 system/user/config/*
 ! system/user/config/config.php.sample
 
+# Ignore cache
+system/user/cache/*
+
 # Ignore templates
 system/user/templates/*
 

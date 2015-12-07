@@ -22,16 +22,22 @@ class Frame
 	);
 	protected $contentFrontMatter;
 	protected $contentBody;
+	protected $twig;
+	protected $twigTemplate;
 	protected $templateVariables = array();
 
 	private $allowedSets = array(
 		'contentFrontMatter',
-		'contentBody'
+		'contentBody',
+		'twig',
+		'twigTemplate'
 	);
 
 	private $allowedGets = array(
 		'contentFrontMatter',
 		'contentBody',
+		'twig',
+		'twigTemplate',
 		'templateVariables',
 		'config',
 		'uri'
