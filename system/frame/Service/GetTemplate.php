@@ -33,6 +33,14 @@ class GetTemplate
 		} else {
 			$uri = frame()->getUri();
 
+			// Check for private segment
+			$uriArray = explode('/', $uri['uriPath']);
+			foreach ($uriArray as $segment) {
+				if (strpos($segment, '_') === 0) {
+					exit('No template was found');
+				}
+			}
+
 			$template = $this->getTemplateContents($uri['uriPath']);
 
 			if (! $template) {

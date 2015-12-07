@@ -39,6 +39,14 @@ class Content
 	 */
 	private function checkContent($uri)
 	{
+		// Check for private segment
+		$uriArray = explode('/', $uri);
+		foreach ($uriArray as $segment) {
+			if (strpos($segment, '_') === 0) {
+				return '';
+			}
+		}
+
 		// Set index if uri is empty
 		$uri = $uri ?: 'index';
 
