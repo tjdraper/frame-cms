@@ -36,17 +36,15 @@ class App
 		$parsedContent = $contentService->get(frame()->getUri('uriPath'));
 
 		// Set the content to the frame global
-		frame()->set('frontMatter', $parsedContent->getYAML());
-		frame()->set('content', $parsedContent->getContent());
+		frame()->set('contentFrontMatter', $parsedContent->getYAML());
+		frame()->set('contentBody', $parsedContent->getContent());
 
 		// Get template
 		$getTemplate = new Service\GetTemplate();
 		$template = $getTemplate->get();
 
-		// Set twig variables including globals (should there be a YAML file
-		// somewhere?) and parse the template through twig, then output
-
-		var_dump($template);
-		die;
+		// Set template variables
+		$setTemplateVariables = new Service\SetTemplateVariables();
+		$setTemplateVariables->set();
 	}
 }

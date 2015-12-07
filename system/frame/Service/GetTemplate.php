@@ -60,7 +60,6 @@ class GetTemplate
 		$templatePath = USER_PATH . '/templates/' . $templatePath;
 
 		foreach ($this->fileExtensions as $ext) {
-			var_dump($templatePath . '.' . $ext);
 			if (is_file($templatePath . '.' . $ext)) {
 				return trim(file_get_contents($templatePath . '.' . $ext));
 			}

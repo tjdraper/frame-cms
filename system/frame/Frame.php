@@ -20,13 +20,36 @@ class Frame
 		'segments' => array(),
 		'uriPath' => false
 	);
-	protected $frontMatter;
-	protected $content;
+	protected $contentFrontMatter;
+	protected $contentBody;
+	protected $templateVariables = array();
 
 	private $allowedSets = array(
-		'frontMatter' => 'frontMatter',
-		'content' => 'content'
+		'contentFrontMatter',
+		'contentBody'
 	);
+
+	private $allowedGets = array(
+		'contentFrontMatter',
+		'contentBody',
+		'templateVariables',
+		'config',
+		'uri'
+	);
+
+	/**
+	 * Set template variable
+	 *
+	 * @param string $name
+	 * @param mixed $data
+	 * @return self
+	 */
+	public function setTemplateVar($name, $data)
+	{
+		$this->templateVariables[$name] = $data;
+
+		return $this;
+	}
 
 	/**
 	 * Set item
@@ -37,7 +60,7 @@ class Frame
 	 */
 	public function set($itemName, $itemData)
 	{
-		if (isset($this->allowedSets[$itemName])) {
+		if (in_array($itemName, $this->allowedSets)) {
 			$this->{$itemName} = $itemData;
 		}
 
@@ -52,7 +75,7 @@ class Frame
 	 */
 	public function get($itemName)
 	{
-		if (isset($this->allowedSets[$itemName])) {
+		if (in_array($itemName, $this->allowedGets)) {
 			return $this->{$itemName};
 		}
 
