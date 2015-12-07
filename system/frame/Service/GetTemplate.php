@@ -36,7 +36,7 @@ class GetTemplate
 			$template = $this->getTemplateContents($uri['uriPath']);
 
 			if (! $template) {
-				$template = $this->getTemplateContents($uri['uriPath'] . '/index');
+				$template = $this->getTemplateContents($uri['uriPath'] . 'index');
 			}
 		}
 

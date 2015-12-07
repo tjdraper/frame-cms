@@ -30,8 +30,7 @@ class App
 		$uriService = new Service\Uri();
 		$uriService->set();
 
-		// Get content for current uri
-		// place into object
+		// Get content for current uri, place into object
 		$contentService = new Service\Content();
 		$parsedContent = $contentService->get(frame()->getUri('uriPath'));
 
@@ -49,8 +48,10 @@ class App
 
 		// Get template
 		$getTemplate = new Service\GetTemplate();
-		$template = $getTemplate->get();
+		$getTemplate->get();
 
-		$template->display(frame()->get('templateVariables'));
+		frame()->get('twigTemplate')->display(
+			frame()->get('templateVariables')
+		);
 	}
 }
