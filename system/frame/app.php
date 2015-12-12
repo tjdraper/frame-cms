@@ -46,7 +46,7 @@ require 'autoload.php';
 */
 
 // We must have one instance of the Frame class
-$frameInstance = new Frame\Frame();
+$frameInstance = new Frame\Model\Frame();
 
 // We need a global function which will return it
 function frame() {

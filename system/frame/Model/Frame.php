@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Frame app controller
+ * Frame data model, set and retrive application state
  *
  * @package frame
  * @author TJ Draper <tj@buzzingpixel.com>
@@ -9,15 +9,9 @@
  * @copyright Copyright (c) 2015, BuzzingPixel
  */
 
-namespace Frame\Controller;
+namespace Frame\Model;
 
-use Frame\Service;
-use Frame\Helper;
-
-class App
+class Frame
 {
-	public function run()
-	{
-		//
-	}
+	protected $config = [];
 }
