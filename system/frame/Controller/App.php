@@ -12,6 +12,7 @@
 namespace Frame\Controller;
 
 use Frame\Model;
+use Frame\Helper;
 
 class App
 {
@@ -31,7 +32,13 @@ class App
 			error_reporting(E_ALL);
 		}
 
-		var_dump($config);
+		// Get all composer autoloads in vendor directory
+		Helper\VendorComposer::setup();
+
+		// Get the Uri
+		$uri = new Model\Uri();
+
+		var_dump($uri->get());
 		die;
 	}
 }

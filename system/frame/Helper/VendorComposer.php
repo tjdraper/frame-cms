@@ -16,10 +16,12 @@ class VendorComposer
 	/**
 	 * Set up Vendor dir composer autoloads
 	 */
-	public function setup()
+	public static function setup()
 	{
+		global $sysDir;
+
 		// Set the vendor path
-		$vendorPath = FRAME_PATH . '/Vendor/';
+		$vendorPath = $sysDir . '/Vendor/';
 		$composerAutoPath = '/vendor/autoload.php';
 
 		// Get array of directories

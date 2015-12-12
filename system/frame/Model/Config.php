@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Frame
+ * Frame Config Model
  *
  * @package frame
  * @author TJ Draper <tj@buzzingpixel.com>
@@ -54,7 +54,7 @@ class Config
 	 * Set config
 	 *
 	 * @param string $name
-	 * @param mixed $va
+	 * @param mixed $val
 	 * @return self
 	 */
 	public function set($name, $val)
