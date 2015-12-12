@@ -38,20 +38,32 @@ require 'autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Setup the app instance
+| Setup globals
 |--------------------------------------------------------------------------
 |
-| We need a single point of entry for the app
+| We need some global config items
 |
 */
 
-// We must have one instance of the Frame class
-$frameInstance = new Frame\Model\Frame();
+global $sysDir;
+global $userDir;
 
-// We need a global function which will return it
-function frame() {
-	return $GLOBALS['frameInstance'];
-}
+$sysDir = __DIR__;
+$userDir = __DIR__ . '/../user';
+
+// We must have one instance of the Frame class
+// global $frameInstance;
+// $frameInstance = new Frame\Model\Frame(__DIR__, __DIR__ . '/../user');
+
+// // We need a global function which will return it
+// function frame() {
+// 	global $frameInstance;
+
+// 	return $frameInstance;
+// }
+
+// var_dump(frame());
+// die;
 
 
 /*
