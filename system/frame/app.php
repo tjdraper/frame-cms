@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Frame start file
+ * Frame setup file
  *
  * @package frame
  * @author TJ Draper <tj@buzzingpixel.com>

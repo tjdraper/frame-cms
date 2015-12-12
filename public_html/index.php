@@ -3,29 +3,51 @@
 /**
  * Frame load file
  *
- * @package frame
+ * @package Frame
  * @author TJ Draper <tj@buzzingpixel.com>
  * @link https://buzzingpixel.com/frame-cms
  * @copyright Copyright (c) 2015, BuzzingPixel
  */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+/*
+|--------------------------------------------------------------------------
+| User Config
+|--------------------------------------------------------------------------
+|
+| Use the variables below for initial system config
+|
+*/
 
-// Path to the frame/ directory
+// Enable debugging at the earliest possible time. This is true for Frame
+// development. Set to false for release.
+$debug = true;
+
+// Path to the frame directory
 $framePath = '../system';
 
-/*------------------------------------*\
-	# System Config, do not edit
-\*------------------------------------*/
 
-$framePath = rtrim($framePath, '/') . '/frame/index.php';
+/*
+|--------------------------------------------------------------------------
+| System, do not edit below this block
+|--------------------------------------------------------------------------|
+*/
 
+// Enable debug as early as possible if requested
+if ($debug) {
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+}
+
+// Based on the $framePath above, set the full frame page
+$framePath = rtrim($framePath, '/') . '/frame/app.php';
+
+// If this path is not correct, we need to exit with an error
 if (! is_file($framePath)) {
 	http_response_code(503);
 
 	exit('Drat! We couldn&rsquo;t find your system directory. Please make sure <strong><code>$framePath</code></strong> is set correctly in ' . __FILE__);
 }
 
-require_once $framePath;
+// And now we should run the application
+require $framePath;
