@@ -38,7 +38,10 @@ class App
 		// Get the Uri
 		$uri = new Model\Uri();
 
-		var_dump($uri->get());
+		// Get content
+		$content = new Model\Content($uri->get('path'));
+
+		var_dump($content->get('body'));
 		die;
 	}
 }
