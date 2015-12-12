@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Frame bootstrap
+ * Frame autoloading
  *
  * @package frame
  * @author TJ Draper <tj@buzzingpixel.com>
@@ -9,7 +9,16 @@
  * @copyright Copyright (c) 2015, BuzzingPixel
  */
 
-// Set up autoloading
+
+/*
+|--------------------------------------------------------------------------
+| Base autoloading
+|--------------------------------------------------------------------------
+|
+| This will autoload Frame base classes
+|
+*/
+
 spl_autoload_register(function ($class) {
 	// Get an array of the namespace being called
 	$ns = explode('\\', $class);
@@ -24,24 +33,11 @@ spl_autoload_register(function ($class) {
 	rtrim($ns, '/');
 
 	// Set the file name
-	$file = FRAME_PATH . DIRECTORY_SEPARATOR . $ns;
+	$file = __DIR__ . DIRECTORY_SEPARATOR . $ns;
 	$file = rtrim($file, DIRECTORY_SEPARATOR) . '.php';
 
-	// Check system path for class
+	// Check for the file
 	if (file_exists($file)) {
 		include_once $file;
-		return;
 	}
 });
-
-// Include frame
-$frameInstance = new Frame\Frame();
-
-// Set up global access
-function frame() {
-	return $GLOBALS['frameInstance'];
-};
-
-// Run the app
-$controller = new Frame\Controller\App();
-$controller->run();

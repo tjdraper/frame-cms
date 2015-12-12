@@ -11,6 +11,9 @@
 
 namespace Frame\Controller;
 
+echo 'here';
+die;
+
 use Frame\Service;
 use Frame\Helper;
 
