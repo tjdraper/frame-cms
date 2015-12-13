@@ -58,15 +58,28 @@ class App
 		$twigEnv = new Service\TwigEnvironment();
 
 		// Display the template
-		$twigEnv->get()->loadTemplate($templatePath)->display([
-			'config' => $config->get(),
-			'yaml' => $content->get('yaml'),
-			'listingParentYaml' => $content->get('listingParentYaml'),
-			'body' => $content->get('body'),
-			'listingParentBody' => $content->get('listingParentBody'),
-			'isListingEntry' => $content->get('isListingEntry'),
-			'listingParentUri' => $content->get('listingParentUri'),
-			'uri' => $uri->get()
-		]);
+		$renderedTemplate = $twigEnv->get()
+			->loadTemplate($templatePath)
+				->render([
+					'config' => $config->get(),
+				'yaml' => $content->get('yaml'),
+				'listingParentYaml' => $content->get('listingParentYaml'),
+				'body' => $content->get('body'),
+				'listingParentBody' => $content->get('listingParentBody'),
+				'isListingEntry' => $content->get('isListingEntry'),
+				'listingParentUri' => $content->get('listingParentUri'),
+				'uri' => $uri->get()
+			]);
+
+		// Cache rendered template if not disabled in the content YAML
+		if (
+			! isset($content->get('yaml')['DisableCache']) and
+			! isset($content->get('listingParentYaml')['DisableCache'])
+		) {
+			$cache = new Service\Cache($config, $uri);
+			$cache->write($renderedTemplate);
+		}
+
+		exit($renderedTemplate);
 	}
 }
