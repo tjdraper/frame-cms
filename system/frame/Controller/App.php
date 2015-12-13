@@ -22,6 +22,9 @@ class App
 	 */
 	public function run()
 	{
+		// Set cache to true, will only be disabled for 404
+		$cache = true;
+
 		// Get debug settings
 		$config = new Model\Config();
 		$debug = $config->get('debug');
@@ -49,9 +52,13 @@ class App
 		);
 		$templatePath = $templatePathPriority->get();
 
-		// If template path is null, we need to send an error
+		// If template path is null, we need to send a 404
 		if ($templatePath === null) {
-			throw new \Exception('No template was found');
+			header('HTTP/1.1 404 Not Found');
+
+			$cache = false;
+
+			$templatePath = $config->get('404Template') . '.twig';
 		}
 
 		// Get the Twig environment
@@ -73,6 +80,7 @@ class App
 
 		// Cache rendered template if not disabled in the content YAML
 		if (
+			$cache and
 			! isset($content->get('yaml')['DisableCache']) and
 			! isset($content->get('listingParentYaml')['DisableCache'])
 		) {
