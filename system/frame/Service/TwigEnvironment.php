@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Frame SetupTwigEnvironment service
+ * Frame TwigEnvironment service
  *
  * @package frame
  * @author TJ Draper <tj@buzzingpixel.com>
@@ -11,17 +11,45 @@
 
 namespace Frame\Service;
 
-class SetupTwigEnvironment
+class TwigEnvironment
 {
-	/**
-	 * Setup twig template environment
-	 */
-	public function set()
-	{
-		// Get the Twig loader
-		$loader = new \Twig_Loader_Filesystem(USER_PATH . '/templates');
+	protected $twig;
 
-		// Setup the Twig environment
+	/**
+	 * TwigEnvironment constructor
+	 */
+	public function __construct()
+	{
+		global $frameTwigEnv;
+
+		if ($frameTwigEnv) {
+			$this->twig = $frameTwigEnv;
+		} else {
+			$this->twig = $this->setupTwigEnvironment();
+
+			$frameTwigEnv = $this->twig;
+		}
+	}
+
+	/**
+	 * Get twig environment
+	 */
+	public function get()
+	{
+		return $this->twig();
+	}
+
+	/**
+	 * Setup Twig environment
+	 */
+	private function setupTwigEnvironment()
+	{
+		global $userDir;
+
+		// Get the Twig loader
+		$loader = new \Twig_Loader_Filesystem($userDir . '/templates');
+
+		// Start the Twig environment
 		$twig = new \Twig_Environment($loader);
 
 		// Load any filters
@@ -33,19 +61,20 @@ class SetupTwigEnvironment
 		// Load any tags
 		$twig = $this->loadTags($twig);
 
-		// Set twig to the frame object
-		frame()->set('twig', $twig);
+		return $twig;
 	}
 
 	/**
-	 * Load filters
+	 * Load Twig filters
 	 *
 	 * @param object $twig Twig instance
-	 * @return object Twig instance
+	 * @return object $twig Twig instance
 	 */
 	private function loadFilters($twig)
 	{
-		$path = FRAME_PATH . '/TwigFilters/';
+		global $sysDir;
+
+		$path = $sysDir . '/TwigFilters/';
 		$filters = scandir($path);
 		unset($filters[0]);
 		unset($filters[1]);
@@ -86,7 +115,9 @@ class SetupTwigEnvironment
 	 */
 	public function loadFunctions($twig)
 	{
-		$path = FRAME_PATH . '/TwigFunctions/';
+		global $sysDir;
+
+		$path = $sysDir . '/TwigFunctions/';
 		$functions = scandir($path);
 		unset($functions[0]);
 		unset($functions[1]);
@@ -127,7 +158,9 @@ class SetupTwigEnvironment
 	 */
 	public function loadTags($twig)
 	{
-		$path = FRAME_PATH . '/TwigTags/';
+		global $sysDir;
+
+		$path = $sysDir . '/TwigTags/';
 		$tags = scandir($path);
 		unset($tags[0]);
 		unset($tags[1]);

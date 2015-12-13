@@ -82,13 +82,17 @@ class Content
 	 * @param string $item
 	 * @return mixed
 	 */
-	public function get($item)
+	public function get($item = false)
 	{
-		if (isset($this->content[$item])) {
-			return $this->content[$item];
+		if ($item) {
+			if (isset($this->content[$item])) {
+				return $this->content[$item];
+			}
+
+			return null;
 		}
 
-		return null;
+		return $this->content;
 	}
 
 	/**

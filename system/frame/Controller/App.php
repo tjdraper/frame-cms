@@ -11,8 +11,9 @@
 
 namespace Frame\Controller;
 
-use Frame\Model;
 use Frame\Helper;
+use Frame\Model;
+use Frame\Service;
 
 class App
 {
@@ -41,7 +42,10 @@ class App
 		// Get content
 		$content = new Model\Content($uri->get('path'));
 
-		var_dump($content->get('body'));
+		// Get the Twig environment
+		$twig = new Service\TwigEnvironment();
+
+		var_dump($twig);
 		die;
 	}
 }
