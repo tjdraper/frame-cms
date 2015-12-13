@@ -36,7 +36,7 @@ class TwigEnvironment
 	 */
 	public function get()
 	{
-		return $this->twig();
+		return $this->twig;
 	}
 
 	/**

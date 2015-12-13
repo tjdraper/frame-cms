@@ -42,10 +42,24 @@ class App
 		// Get content
 		$content = new Model\Content($uri->get('path'));
 
-		// Get the Twig environment
-		$twig = new Service\TwigEnvironment();
+		// Get template path
+		$templatePathPriority = new Helper\TemplatePathPriority(
+			$content,
+			$uri
+		);
+		$templatePath = $templatePathPriority->get();
 
-		var_dump($twig);
-		die;
+		// If template path is null, we need to send an error
+		if ($templatePath === null) {
+			throw new \Exception('No template was found');
+		}
+
+		// Get the Twig environment
+		$twigEnv = new Service\TwigEnvironment();
+
+		// Display the template
+		$twigEnv->get()->loadTemplate($templatePath)->display(
+			array()
+		);
 	}
 }

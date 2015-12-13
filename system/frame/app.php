@@ -48,22 +48,8 @@ require 'autoload.php';
 global $sysDir;
 global $userDir;
 
-$sysDir = __DIR__;
-$userDir = __DIR__ . '/../user';
-
-// We must have one instance of the Frame class
-// global $frameInstance;
-// $frameInstance = new Frame\Model\Frame(__DIR__, __DIR__ . '/../user');
-
-// // We need a global function which will return it
-// function frame() {
-// 	global $frameInstance;
-
-// 	return $frameInstance;
-// }
-
-// var_dump(frame());
-// die;
+$sysDir = realpath(__DIR__);
+$userDir = realpath(__DIR__ . '/../user');
 
 
 /*

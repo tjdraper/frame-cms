@@ -56,13 +56,21 @@ class Content
 				$listing = $this->getListing($uri);
 
 				if ($listing) {
+					// Get parent content
+					$parentContent = $this->getContent($listing['listingParentUri']);
+
 					// Parse the content
 					$parsed = $frontYamlParser->parse($listing['content']);
+
+					// Parse Parent Content
+					$parsedParent = $frontYamlParser->parse($parentContent);
 
 					// Set content items
 					$content = [
 						'yaml' => $parsed->getYAML(),
+						'listingParentYaml' => $parsedParent->getYAML(),
 						'body' => $parsed->getContent(),
+						'listingParentBody' => $parsedParent->getContent(),
 						'isListingEntry' => true,
 						'listingPath' => $listing['listingPath'],
 						'listingParentUri' => $listing['listingParentUri']
