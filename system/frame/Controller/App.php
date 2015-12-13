@@ -58,8 +58,15 @@ class App
 		$twigEnv = new Service\TwigEnvironment();
 
 		// Display the template
-		$twigEnv->get()->loadTemplate($templatePath)->display(
-			array()
-		);
+		$twigEnv->get()->loadTemplate($templatePath)->display([
+			'config' => $config->get(),
+			'yaml' => $content->get('yaml'),
+			'listingParentYaml' => $content->get('listingParentYaml'),
+			'body' => $content->get('body'),
+			'listingParentBody' => $content->get('listingParentBody'),
+			'isListingEntry' => $content->get('isListingEntry'),
+			'listingParentUri' => $content->get('listingParentUri'),
+			'uri' => $uri->get()
+		]);
 	}
 }
