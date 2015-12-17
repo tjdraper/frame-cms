@@ -68,6 +68,7 @@ class Content
 
 					// Set content items
 					$content = [
+						'meta' => $listing['meta'],
 						'yaml' => $parsed->getYAML(),
 						'listingParentYaml' => $parsedParent->getYAML(),
 						'body' => $parsed->getContent(),
@@ -201,11 +202,14 @@ class Content
 				continue;
 			}
 
+			$meta = new EntryFileName($entry);
+
 			if (is_file($listingPath . $entry)) {
 				return [
 					'listingPath' => $listingParentPath,
 					'listingParentUri' => $path,
-					'content' => file_get_contents($listingPath . $entry)
+					'content' => file_get_contents($listingPath . $entry),
+					'meta' => $meta->asArray()
 				];
 			}
 		}

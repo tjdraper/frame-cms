@@ -70,6 +70,7 @@ class App
 				->render([
 					'config' => $config->get(),
 				'yaml' => $content->get('yaml'),
+				'meta' => $content->get('meta'),
 				'listingParentYaml' => $content->get('listingParentYaml'),
 				'body' => $content->get('body'),
 				'listingParentBody' => $content->get('listingParentBody'),
