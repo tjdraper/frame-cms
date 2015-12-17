@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2015, BuzzingPixel
  */
 
-namespace Frame\Helper;
+namespace Frame\Model;
 
 class EntryFileName
 {

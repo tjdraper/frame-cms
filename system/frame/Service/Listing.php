@@ -118,7 +118,7 @@ class Listing
 		$listingFiles = Helper\DirArray::files($path);
 
 		foreach (array_values($listingFiles) as $key => $fileName) {
-			$meta = new Helper\EntryFileName($fileName);
+			$meta = new Model\EntryFileName($fileName);
 
 			$rawContent = file_get_contents($path . $fileName);
 
