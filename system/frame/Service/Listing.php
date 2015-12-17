@@ -80,11 +80,11 @@ class Listing
 		$this->setListings();
 
 		if ($this->conf['orderBy'] === 'date') {
-			$this->sortListingsByDate($conf['sort']);
+			$this->sortListingsByDate($this->conf['sort']);
 		}
 
 		if ($this->conf['orderBy'] === 'slug') {
-			$this->sortListingsBySlug($conf['sort']);
+			$this->sortListingsBySlug($this->conf['sort']);
 		}
 
 		if ($this->conf['offset']) {
