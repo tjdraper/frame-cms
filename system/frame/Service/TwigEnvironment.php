@@ -89,14 +89,15 @@ class TwigEnvironment
 				continue;
 			}
 
-			$namespace[] = $filterName;
-			$namespace[] = $filterName . '_Filter';
-			$namespace = implode('\\', $namespace);
+			$thisNamespace = $namespace;
+			$thisNamespace[] = $filterName;
+			$thisNamespace[] = $filterName . '_Filter';
+			$thisNamespace = implode('\\', $thisNamespace);
 
 			$filter = new \Twig_SimpleFilter(
 				lcfirst($filterName),
 				array(
-					$namespace,
+					$thisNamespace,
 					'index'
 				)
 			);
@@ -130,14 +131,15 @@ class TwigEnvironment
 				continue;
 			}
 
-			$namespace[] = $functionName;
-			$namespace[] = $functionName . '_Function';
-			$namespace = implode('\\', $namespace);
+			$thisNamespace = $namespace;
+			$thisNamespace[] = $functionName;
+			$thisNamespace[] = $functionName . '_Function';
+			$thisNamespace = implode('\\', $thisNamespace);
 
 			$function = new \Twig_SimpleFunction(
 				lcfirst($functionName),
 				array(
-					$namespace,
+					$thisNamespace,
 					'index'
 				)
 			);
@@ -171,11 +173,12 @@ class TwigEnvironment
 				continue;
 			}
 
-			$namespace[] = $tagName;
-			$namespace[] = $tagName . '_TokenParser';
-			$namespace = implode('\\', $namespace);
+			$thisNamespace = $namespace;
+			$thisNamespace[] = $tagName;
+			$thisNamespace[] = $tagName . '_TokenParser';
+			$thisNamespace = implode('\\', $thisNamespace);
 
-			$twig->addTokenParser(new $namespace());
+			$twig->addTokenParser(new $thisNamespace());
 		}
 
 		return $twig;
