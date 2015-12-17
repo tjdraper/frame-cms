@@ -67,8 +67,8 @@ class App
 		// Display the template
 		$renderedTemplate = $twigEnv->get()
 			->loadTemplate($templatePath)
-				->render([
-					'config' => $config->get(),
+			->render([
+				'config' => $config->get(),
 				'yaml' => $content->get('yaml'),
 				'meta' => $content->get('meta'),
 				'listingParentYaml' => $content->get('listingParentYaml'),

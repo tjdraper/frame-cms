@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Frame ExampleFunc twig function
+ * Frame Listing twig function
  *
  * @package frame
  * @author TJ Draper <tj@buzzingpixel.com>

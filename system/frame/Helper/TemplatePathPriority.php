@@ -108,14 +108,8 @@ class TemplatePathPriority
 
 		$path = $userDir . '/templates/';
 
-		// Check with .twig
 		if (file_exists($path . $template . '.twig')) {
 			return $template . '.twig';
-		}
-
-		// Check with .html
-		if (file_exists($path . $template . '.html')) {
-			return $template . '.html';
 		}
 
 		return null;
