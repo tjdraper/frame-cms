@@ -49,7 +49,8 @@ class Content
 				// Set content items
 				$content = [
 					'yaml' => $parsed->getYAML(),
-					'body' => $parsed->getContent()
+					'body' => $parsed->getContent(),
+					'hasListings' => $this->checkForListings($uri)
 				];
 
 			// Check if this is a listing entry
@@ -75,7 +76,8 @@ class Content
 						'listingParentBody' => $parsedParent->getContent(),
 						'isListingEntry' => true,
 						'listingPath' => $listing['listingPath'],
-						'listingParentUri' => $listing['listingParentUri']
+						'listingParentUri' => $listing['listingParentUri'],
+						'hasListings' => false
 					];
 				}
 			}
@@ -215,5 +217,21 @@ class Content
 		}
 
 		return null;
+	}
+
+	/**
+	 * Check for listings
+	 *
+	 * @param string $uri
+	 * @return bool
+	 */
+	private function checkForListings($uri)
+	{
+		global $userDir;
+
+		// Set the user content path
+		$contentPath = $userDir . '/content/';
+
+		return is_dir($contentPath . $uri . '/_listingContent');
 	}
 }

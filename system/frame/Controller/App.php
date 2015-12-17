@@ -52,7 +52,7 @@ class App
 		);
 		$templatePath = $templatePathPriority->get();
 
-		// If template path is null, we need to send a 404
+		// If template path is null we need to send a 404
 		if ($templatePath === null) {
 			header('HTTP/1.1 404 Not Found');
 

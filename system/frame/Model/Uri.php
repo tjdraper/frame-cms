@@ -81,6 +81,9 @@ class Uri
 	 */
 	private function parseUri()
 	{
+		// Set page to 1 initially
+		$page = 1;
+
 		// Get the uri parts
 		$uriParts = parse_url($_SERVER['REQUEST_URI']);
 
@@ -109,11 +112,26 @@ class Uri
 			}
 		}
 
+		$segCount = count($uriSegments);
+
+		// Check for pagination
+		if (
+			count($uriSegments) > 1 and
+			ctype_digit($uriSegments[$segCount - 1]) and
+			(int) $uriSegments[$segCount - 1] > 1 and
+			$uriSegments[$segCount - 2] === 'page'
+		) {
+			$page = (int) $uriSegments[$segCount - 1];
+			unset($uriSegments[$segCount - 1]);
+			unset($uriSegments[$segCount - 2]);
+		}
+
 		return [
 			'raw' => $uriParts['path'],
 			'segments' => array_values($uriSegments),
 			'path' => implode('/', $uriSegments),
-			'query' => isset($uriParts['query']) ? $uriParts['query'] : false
+			'query' => isset($uriParts['query']) ? $uriParts['query'] : false,
+			'page' => $page
 		];
 	}
 }
