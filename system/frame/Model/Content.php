@@ -104,6 +104,16 @@ class Content
 	}
 
 	/**
+	 * Get content array
+	 *
+	 * @return array
+	 */
+	public function asArray()
+	{
+		return $this->content;
+	}
+
+	/**
 	 * Get content for specified uri
 	 *
 	 * @param string $uri

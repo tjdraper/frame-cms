@@ -11,16 +11,25 @@
 
 namespace Frame\TwigFunctions\Listing;
 
+use Frame\Service;
+
 class Listing_Function
 {
 	/**
 	 * Listing
 	 *
-	 * @param string $listingDirectory
-	 * @return string
+	 * @param array $conf {
+	 *     @var string $path
+	 *     @var int $limit
+	 *     @var string $orderBy
+	 *     @var string $sort
+	 * }
+	 * @return array
 	 */
-	public static function index($listingDirectory)
+	public static function index($conf = [])
 	{
-		return 'Example';
+		$listing = new Service\Listing($conf);
+
+		return $listing->get();
 	}
 }
