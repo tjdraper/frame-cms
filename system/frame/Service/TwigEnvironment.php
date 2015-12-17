@@ -11,6 +11,8 @@
 
 namespace Frame\Service;
 
+use Frame\Helper;
+
 class TwigEnvironment
 {
 	protected $twig;
@@ -75,9 +77,7 @@ class TwigEnvironment
 		global $sysDir;
 
 		$path = $sysDir . '/TwigFilters/';
-		$filters = scandir($path);
-		unset($filters[0]);
-		unset($filters[1]);
+		$filters = Helper\DirArray::directories($path);
 
 		$namespace = array(
 			'\Frame',
@@ -118,9 +118,7 @@ class TwigEnvironment
 		global $sysDir;
 
 		$path = $sysDir . '/TwigFunctions/';
-		$functions = scandir($path);
-		unset($functions[0]);
-		unset($functions[1]);
+		$functions = Helper\DirArray::directories($path);
 
 		$namespace = array(
 			'\Frame',
@@ -161,9 +159,7 @@ class TwigEnvironment
 		global $sysDir;
 
 		$path = $sysDir . '/TwigTags/';
-		$tags = scandir($path);
-		unset($tags[0]);
-		unset($tags[1]);
+		$tags = Helper\DirArray::directories($path);
 
 		$namespace = array(
 			'\Frame',

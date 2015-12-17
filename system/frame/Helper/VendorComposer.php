@@ -25,9 +25,7 @@ class VendorComposer
 		$composerAutoPath = '/vendor/autoload.php';
 
 		// Get array of directories
-		$vendorDirectories = scandir($vendorPath);
-		unset($vendorDirectories[0]);
-		unset($vendorDirectories[1]);
+		$vendorDirectories = DirArray::directories($vendorPath);
 
 		// Check for composer autoload file
 		foreach ($vendorDirectories as $directory) {

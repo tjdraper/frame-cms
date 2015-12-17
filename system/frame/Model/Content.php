@@ -12,6 +12,7 @@
 namespace Frame\Model;
 
 use Mni\FrontYAML;
+use Frame\Helper;
 
 class Content
 {
@@ -185,9 +186,7 @@ class Content
 		}
 
 		// Get entries
-		$entries = scandir($listingPath);
-		unset($entries[0]);
-		unset($entries[1]);
+		$entries = Helper\DirArray::files($listingPath);
 
 		// Check for slug match
 		foreach ($entries as $entry) {
