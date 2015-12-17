@@ -108,6 +108,9 @@ class TemplatePathPriority
 
 		$path = $userDir . '/templates/';
 
+		// Check for index if $template is empty
+		$template = $template ?: 'index';
+
 		if (file_exists($path . $template . '.twig')) {
 			return $template . '.twig';
 		}
