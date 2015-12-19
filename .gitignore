@@ -15,6 +15,9 @@ system/user/templates/*
 # Ignore content
 system/user/content/*
 
+# Ignore globals
+system/user/globals/*
+
 
 
 

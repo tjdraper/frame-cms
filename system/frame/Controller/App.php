@@ -64,19 +64,23 @@ class App
 		// Get the Twig environment
 		$twigEnv = new Service\TwigEnvironment();
 
+		// Set up Twig globals
+		Helper\TwigGlobals::add($twigEnv, [
+			'config' => $config->get(),
+			'uri' => $uri->get()
+		]);
+
 		// Display the template
 		$renderedTemplate = $twigEnv->get()
 			->loadTemplate($templatePath)
 			->render([
-				'config' => $config->get(),
 				'yaml' => $content->get('yaml'),
 				'meta' => $content->get('meta'),
 				'listingParentYaml' => $content->get('listingParentYaml'),
 				'body' => $content->get('body'),
 				'listingParentBody' => $content->get('listingParentBody'),
 				'isListingEntry' => $content->get('isListingEntry'),
-				'listingParentUri' => $content->get('listingParentUri'),
-				'uri' => $uri->get()
+				'listingParentUri' => $content->get('listingParentUri')
 			]);
 
 		// Cache rendered template if not disabled in the content YAML
