@@ -44,6 +44,7 @@ class Listing
 	 *     @var int $limit
 	 *     @var string $orderBy
 	 *     @var string $sort
+	 *     @var int $offset
 	 * }
 	 */
 	public function __construct($conf)
@@ -105,12 +106,16 @@ class Listing
 
 		if (! $this->conf['path']) {
 			$this->listings = null;
+
+			return;
 		}
 
 		$path = $userDir . '/content/' . $this->conf['path'] . '/_listingContent/';
 
 		if (! is_dir($path)) {
 			$this->listings = null;
+
+			return;
 		}
 
 		$listings = [];
