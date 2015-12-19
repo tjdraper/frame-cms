@@ -93,6 +93,10 @@ class App
 			$cache->write($renderedTemplate);
 		}
 
-		exit($renderedTemplate);
+		// Use the output buffer so that calls such as set404 can flush the
+		// buffer and output something else entirely
+		ob_start();
+		echo $renderedTemplate;
+		ob_end_flush();
 	}
 }

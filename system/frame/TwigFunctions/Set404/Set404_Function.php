@@ -21,6 +21,9 @@ class Set404_Function
 	 */
 	public static function index()
 	{
+		// Clear the output buffer of any previous content
+		ob_clean();
+
 		// Set 404 header
 		header('HTTP/1.1 404 Not Found');
 
@@ -37,20 +40,16 @@ class Set404_Function
 		$uri = new Model\Uri();
 
 		// Display the template
-		$twigEnv->get()
+		$renderedTemplate = $twigEnv->get()
 			->loadTemplate($template)
-			->display([
-				'config' => $config->get(),
-				'yaml' => [],
-				'meta' => [],
-				'listingParentYaml' => [],
-				'body' => '',
-				'listingParentBody' => '',
-				'isListingEntry' => false,
-				'listingParentUri' => null,
-				'uri' => $uri->get()
-			]);
+			->render([]);
 
+		// Put the content in the output buffer
+		ob_start();
+		echo $renderedTemplate;
+		ob_end_flush();
+
+		// End the script
 		exit();
 	}
 }
