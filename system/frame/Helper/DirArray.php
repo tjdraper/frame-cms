@@ -41,7 +41,7 @@ class DirArray
 		$returnContent = [];
 
 		foreach ($content as $item) {
-			if (file_exists($path . $item)) {
+			if (file_exists($path . $item) and ! is_dir($path . $item)) {
 				$returnContent[] = $item;
 			}
 		}
