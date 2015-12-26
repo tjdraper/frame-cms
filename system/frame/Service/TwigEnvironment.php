@@ -126,9 +126,15 @@ class TwigEnvironment
 	public function loadFunctions($twig)
 	{
 		global $sysDir;
+		global $userDir;
 
 		$path = $sysDir . '/TwigFunctions/';
 		$functions = Helper\DirArray::directories($path);
+
+		$userPath = $userDir . '/TwigFunctions/';
+		$userFunctions = Helper\DirArray::directories($userPath);
+
+		$functions = array_merge($functions, $userFunctions);
 
 		$namespace = array(
 			'\Frame',
@@ -136,7 +142,10 @@ class TwigEnvironment
 		);
 
 		foreach ($functions as $functionName) {
-			if (! is_dir($path . $functionName)) {
+			if (
+				! is_dir($path . $functionName) AND
+				! is_dir($userPath . $functionName)
+			) {
 				continue;
 			}
 
