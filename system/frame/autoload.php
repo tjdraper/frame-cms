@@ -30,7 +30,7 @@ spl_autoload_register(function ($class) {
 	$ns = implode(DIRECTORY_SEPARATOR, $ns);
 
 	// Make sure there is no trailing slash
-	rtrim($ns, '/');
+	$ns = rtrim($ns, '/');
 
 	// Set the file name
 	$file = __DIR__ . DIRECTORY_SEPARATOR . $ns;
@@ -39,5 +39,19 @@ spl_autoload_register(function ($class) {
 	// Check for the file
 	if (file_exists($file)) {
 		include_once $file;
+
+		return;
+	}
+
+	// Check user directories
+	global $userDir;
+	$file = $userDir . DIRECTORY_SEPARATOR . $ns;
+	$file = rtrim($file, DIRECTORY_SEPARATOR) . '.php';
+
+	// Check for the file
+	if (file_exists($file)) {
+		include_once $file;
+
+		return;
 	}
 });
