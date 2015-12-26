@@ -177,9 +177,15 @@ class TwigEnvironment
 	public function loadTags($twig)
 	{
 		global $sysDir;
+		global $userDir;
 
 		$path = $sysDir . '/TwigTags/';
 		$tags = Helper\DirArray::directories($path);
+
+		$userPath = $userDir . '/TwigTagsTwigTags/';
+		$userTags = Helper\DirArray::directories($userPath);
+
+		$tags = array_merge($tags, $userTags);
 
 		$namespace = array(
 			'\Frame',
@@ -187,7 +193,10 @@ class TwigEnvironment
 		);
 
 		foreach ($tags as $tagName) {
-			if (! is_dir($path . $tagName)) {
+			if (
+				! is_dir($path . $tagName) AND
+				! is_dir($userPath . $tagName)
+			) {
 				continue;
 			}
 
