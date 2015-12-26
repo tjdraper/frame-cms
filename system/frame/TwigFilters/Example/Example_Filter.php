@@ -11,7 +11,7 @@
 
 namespace Frame\TwigFilters\Example;
 
-class Example_filter
+class Example_Filter
 {
 	/**
 	 * Example filter
