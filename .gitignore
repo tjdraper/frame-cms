@@ -18,6 +18,11 @@ system/user/content/*
 # Ignore globals
 system/user/globals/*
 
+# Ignore user TwigFilters, TwigFunction, and TwigTags
+system/user/TwigFilters/*
+system/user/TwigFunctions/*
+system/user/TwigTags/*
+
 
 
 
