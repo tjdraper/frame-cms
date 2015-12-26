@@ -75,9 +75,15 @@ class TwigEnvironment
 	private function loadFilters($twig)
 	{
 		global $sysDir;
+		global $userDir;
 
 		$path = $sysDir . '/TwigFilters/';
 		$filters = Helper\DirArray::directories($path);
+
+		$userPath = $userDir . '/TwigFilters/';
+		$userFilters = Helper\DirArray::directories($userPath);
+
+		$filters = array_merge($filters, $userFilters);
 
 		$namespace = array(
 			'\Frame',
@@ -85,7 +91,10 @@ class TwigEnvironment
 		);
 
 		foreach ($filters as $filterName) {
-			if (! is_dir($path . $filterName)) {
+			if (
+				! is_dir($path . $filterName) AND
+				! is_dir($userPath . $filterName)
+			) {
 				continue;
 			}
 
