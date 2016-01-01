@@ -1,3 +1,3 @@
 <?php
 
-return '1.0.0-b.6';
+return '1.0.0-b.7';

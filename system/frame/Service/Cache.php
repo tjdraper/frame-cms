@@ -53,10 +53,12 @@ class Cache
 
 		// Go through the segments, add them to the path, and write directories
 		foreach ($this->uri->get('segments') as $segment) {
-			$path .= $segment . '/';
+			if ($segment) {
+				$path .= $segment . '/';
 
-			if (! is_dir($path)) {
-				mkdir($path, 0777);
+				if (! is_dir($path)) {
+					mkdir($path, 0777);
+				}
 			}
 		}
 
