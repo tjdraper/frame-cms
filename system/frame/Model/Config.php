@@ -11,6 +11,8 @@
 
 namespace Frame\Model;
 
+use Frame\Helper;
+
 class Config
 {
 	protected $config = [];
@@ -80,16 +82,26 @@ class Config
 	 */
 	private function getFileConfig()
 	{
+		// Get globals
 		global $sysDir;
 		global $userDir;
 
+		// Set paths
+		$userConfigDir = $userDir . '/config/';
 		$conf = require $sysDir . '/Config/DefaultConfig.php';
-		$sysConf = $conf;
 
-		if (is_file($userDir . '/config/config.php')) {
-			$userConf = include $userDir . '/config/config.php';
+		// Make sure the user config directory exists
+		if (! is_dir($userConfigDir)) {
+			return $conf;
+		}
 
-			$conf = array_merge($conf, $userConf);
+		// Get the user config files
+		$configFiles = Helper\DirArray::files($userConfigDir);
+
+		// Loop through each file and merge in its contents
+		foreach ($configFiles as $file) {
+			$fileConf = include $userConfigDir . $file;
+			$conf = array_merge($conf, $fileConf);
 		}
 
 		return $conf;
