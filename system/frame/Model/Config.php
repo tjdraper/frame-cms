@@ -101,7 +101,10 @@ class Config
 		// Loop through each file and merge in its contents
 		foreach ($configFiles as $file) {
 			$fileConf = include $userConfigDir . $file;
-			$conf = array_merge($conf, $fileConf);
+
+			if (gettype($fileConf) === 'array') {
+				$conf = array_merge($conf, $fileConf);
+			}
 		}
 
 		return $conf;
