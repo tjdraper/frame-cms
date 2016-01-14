@@ -63,6 +63,9 @@ class TwigEnvironment
 		// Load any tags
 		$twig = $this->loadTags($twig);
 
+		// Add the Twig Text extension library
+		$twig->addExtension(new \Twig_Extensions_Extension_Text());
+
 		return $twig;
 	}
 
