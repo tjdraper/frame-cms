@@ -51,8 +51,16 @@ class Cache
 			throw new \Exception('No cache directory found');
 		}
 
+		$uri = $this->uri->get('segments');
+		$page = $this->uri->get('page');
+
+		if ($page > 1) {
+			$uri[] = 'page';
+			$uri[] = $page;
+		}
+
 		// Go through the segments, add them to the path, and write directories
-		foreach ($this->uri->get('segments') as $segment) {
+		foreach ($uri as $segment) {
 			if ($segment) {
 				$path .= $segment . '/';
 
